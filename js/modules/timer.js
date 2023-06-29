@@ -1,5 +1,4 @@
-function timer() {
-    const deadline = '2023-09-02';
+function timer(id, deadline) {
     //Функция просчитывает разницу между датами и возвращает необходимые значения
     function getTimeRemaining(endtime) {
         let days, hours, minutes, seconds;
@@ -56,7 +55,7 @@ function timer() {
         }
 
     }
-    setClock('.timer', deadline);
+    setClock(id, deadline);
 }
 
 export default timer;
