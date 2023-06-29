@@ -681,10 +681,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function tabs() {
-    const tabs = document.querySelectorAll('.tabheader__item'), //Создаем коллекцию табов
-          tabsContent = document.querySelectorAll('.tabcontent'), //Коллекция описания табов
-          tabsParent = document.querySelector('.tabheader__items'); //Родительский элемент табов
+function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
+    const tabs = document.querySelectorAll(tabsSelector), //Создаем коллекцию табов
+          tabsContent = document.querySelectorAll(tabsContentSelector), //Коллекция описания табов
+          tabsParent = document.querySelector(tabsParentSelector); //Родительский элемент табов
 
     //Создаём функцию по скрыванию табов
     function hideTabContent() {
@@ -693,14 +693,14 @@ function tabs() {
             item.classList.remove('show');
         });
         tabs.forEach(item => {
-            item.classList.remove('tabheader__item_active');
+            item.classList.remove(activeClass);
         });
     }
     //Создаём фнкцию по показу табов
     function showTabContent(i = 0) {
         tabsContent[i].classList.add('show', 'fade');
         tabsContent[i].classList.remove('hide');
-        tabs[i].classList.add('tabheader__item_active');
+        tabs[i].classList.add(activeClass);
     }
 
     hideTabContent();
@@ -709,7 +709,7 @@ function tabs() {
     tabsParent.addEventListener('mousemove', (event) => {
         const target = event.target;
 
-        if (target && target.classList.contains('tabheader__item')) {
+        if (target && target.classList.contains(tabsSelector.slice(1))) {
             tabs.forEach((item, i) => {
                 if (target == item) {
                     hideTabContent();
@@ -929,7 +929,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', () => {
     const modalTimerId = setTimeout(() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__.openModal)('.modal', modalTimerId), 3000);
-    (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
     (0,_modules_cards__WEBPACK_IMPORTED_MODULE_1__["default"])();
     (0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])(modalTimerId);
     (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"])('[data-modal]', '.modal', modalTimerId);
