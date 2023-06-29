@@ -133,6 +133,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
+
+
 function cards (){
     // class MenuCard {
     //     constructor(src, alt, title, descr, price) {
@@ -218,15 +221,6 @@ function cards (){
         }
     }
 
-    const getResource = async (url) => {
-        const res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-        }
-        return await res.json();
-    };
-
     // getResource('http://localhost:3000/menu')
     //     .then(data => {
     //         data.forEach(({img, altimg, title, descr, price}) => {
@@ -234,13 +228,7 @@ function cards (){
     //         });
     //     });
 
-    axios.get('http://localhost:3000/menu')
-        .then(data => {
-                data.data.forEach(({img, altimg, title, descr, price}) => {
-                    new MenuCard(img, altimg, title, descr, price, ".menu .container", 'menu__item', 'big').render();
-                });
-            });
-
+    (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getDataForCards)('http://localhost:3000/menu', MenuCard);
     // new MenuCard(
     //     "img/tabs/vegy.jpg",
     //     "vegy",
@@ -291,6 +279,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.js");
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
+
 
 
 function forms(formSelector, modalTimerId) {
@@ -305,18 +295,6 @@ function forms(formSelector, modalTimerId) {
     forms.forEach(item => {
         bindPostData(item);
     });
-
-    const postData = async (url, data) => {
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json; charset=utf-8'
-                },
-            body: data
-        });
-
-        return await res.json();
-    };
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {
@@ -355,7 +333,7 @@ function forms(formSelector, modalTimerId) {
             //     },
             //     body: JSON.stringify(object)
             // });
-            postData('http://localhost:3000/requests', json)
+            (0,_services_services__WEBPACK_IMPORTED_MODULE_1__["default"])('http://localhost:3000/requests', json)
             // .then(data => data.text())
             .then(data => {
                 console.log(data);
@@ -818,6 +796,54 @@ function timer() {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timer);
+
+/***/ }),
+
+/***/ "./js/services/services.js":
+/*!*********************************!*\
+  !*** ./js/services/services.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDataForCards: () => (/* binding */ getDataForCards),
+/* harmony export */   getResource: () => (/* binding */ getResource),
+/* harmony export */   postData: () => (/* binding */ postData)
+/* harmony export */ });
+const postData = async (url, data) => {
+    const res = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+            },
+        body: data
+    });
+
+    return await res.json();
+};
+
+const getResource = async (url) => {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    }
+    return await res.json();
+};
+
+function getDataForCards (url, classForCard) {
+    axios.get(url)
+    .then(data => {
+            data.data.forEach(({img, altimg, title, descr, price}) => {
+                new classForCard(img, altimg, title, descr, price, ".menu .container", 'menu__item', 'big').render();
+            });
+        });
+}
+
+
+
+
 
 /***/ })
 
