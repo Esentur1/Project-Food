@@ -15,7 +15,16 @@ window.addEventListener('DOMContentLoaded', () => {
     timer('.timer', '2023-09-24');
     modal('[data-modal]', '.modal', modalTimerId);
     forms('form', modalTimerId);
-    slider();
+    slider({
+        container: '.offer__slider',
+        nextArrow: '.offer__slider-next',
+        prevArrow: '.offer__slider-prev',
+        slide: '.offer__slide',
+        totalCounter: '#total',
+        currentCounter: '#current',
+        wrapper: '.offer__slider-wrapper',
+        field: '.offer__slider-inner'
+    });
     calc();
     
     //Tabs
