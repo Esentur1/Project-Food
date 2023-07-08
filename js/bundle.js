@@ -333,7 +333,7 @@ function forms(formSelector, modalTimerId) {
             //     },
             //     body: JSON.stringify(object)
             // });
-            (0,_services_services__WEBPACK_IMPORTED_MODULE_1__["default"])('http://localhost:3000/requests', json)
+            (0,_services_services__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:3000/requests', json)
             // .then(data => data.text())
             .then(data => {
                 console.log(data);
