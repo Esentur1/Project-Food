@@ -1,5 +1,7 @@
 'use strict';
 
+require('es6-promise').polyfill();
+
 import tabs from "./modules/tabs";
 import cards from "./modules/cards";
 import timer from "./modules/timer";
